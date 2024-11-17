@@ -1,0 +1,228 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Cumpleaños</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe6f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .mensaje-bienvenida {
+            text-align: center;
+            font-size: 24px;
+            color: #ff66b3;
+            margin-bottom: 20px;
+        }
+        .botones {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .boton {
+            background-color: #ff4d94;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .boton:hover {
+            background-color: #ff3385;
+        }
+        .boton.movido {
+            position: relative;
+            animation: mover 0.3s forwards;
+        }
+        @keyframes mover {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(30px); }
+            100% { transform: translateX(-30px); }
+        }
+
+        /* Sección de la carta */
+        .carta-contenedor {
+            perspective: 1000px;
+            display: none;
+        }
+        .carta {
+            width: 350px;
+            height: 250px;
+            background: linear-gradient(to right, #ffb3d9, #ff80bf);
+            border-radius: 10px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg);
+            transition: transform 1s;
+            cursor: pointer;
+        }
+        .carta.abierta {
+            transform: rotateY(-160deg);
+        }
+        .cara {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+        }
+        .cara-frontal {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(to right, #ff99cc, #ff66b3);
+        }
+        .cara-frontal img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .cara-interior {
+            background: white;
+            color: #ff4d94;
+            text-align: center;
+            padding: 20px;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .mensaje {
+            color: #ff4d94;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        /* Sección adicional para los mensajes */
+        .mensaje-adicional {
+            background-color: #fce1f2;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: none; /* Ocultamos los mensajes al principio */
+        }
+        .mensaje-adicional p {
+            font-size: 12px;
+            color: #ff66b3;
+            font-style: italic;
+        }
+
+        /* Animación de explosión para el texto */
+        .explosion-texto {
+            display: none;
+            color: red;
+            font-size: 30px;
+            font-weight: bold;
+            animation: explosion 1s forwards;
+            text-align: center;
+        }
+
+        @keyframes explosion {
+            0% { transform: scale(1); opacity: 0; }
+            50% { transform: scale(1.5); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla de bienvenida -->
+    <div class="mensaje-bienvenida">
+        ¿Quieres abrir tu carta de cumpleaños?
+    </div>
+
+    <div class="botones">
+        <button class="boton" id="botonSi" onclick="abrirCarta()">Sí</button>
+        <button class="boton" id="botonNo" onclick="rechazarCarta()">No</button>
+    </div>
+
+    <!-- Música de fondo -->
+    <audio autoplay loop>
+        <source src="file:///E:/ANGELY/Javier%20Sol%C3%ADs%20-%20Las%20Ma%C3%B1anitas%20(LetraLyrics).mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+
+    <!-- Texto explosión -->
+    <div id="explosionText" class="explosion-texto">¿Por qué no quieres abrir tu carta? :C</div>
+
+    <div class="carta-contenedor" id="cartaContenedor">
+        <div class="carta" id="carta">
+            <div class="cara cara-frontal">
+                <!-- Imagen descargada -->
+                <img src="file:///E:/ANGELY/ff28f4d0-f0b7-43e4-9876-a7171cfec8c9.jfif" alt="Imagen de cumpleaños">
+                ¡Feliz Cumpleaños!
+            </div>
+            <div class="cara cara-interior">
+                <h3>Hola Mari:</h3>
+                <p class="mensaje">
+                    Si aprendí a programar, quiero decirte que pases un feliz cumpleaños.  
+                    Pásala bonito, come algo que te guste y pasa junto a tus seres queridos.  
+                    Tu personalidad es muy única, siempre haces que los demás te quieran.  
+                    Eres mi hija favorita y también mi única hija, ¡por eso eres mi favorita!  
+                    Te quiere,  
+                    Tu amigo, Rabanito.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensajes adicionales -->
+    <div class="mensaje-adicional" id="mensajeDavid">
+        <p><strong>De David:</strong> Un año más de vida, pasar este tiempo contigo ha sido muy feliz y divertido. Cada día desde que te uniste a nuestras conversaciones nocturnas y sin sentido me ha encantado tenerte como amiga. Espero seguir disfrutando de esos momentos inolvidables que nos haces pasar con tu carisma. Que te la pases excelente hoy y siempre, de mi parte para vos, con cariño. ¡Yo, jajajaja!</p>
+    </div>
+
+    <div class="mensaje-adicional" id="mensajeMyce">
+        <p><strong>De Myce:</strong> La versión que tienes ahora mismo merece amor, o la de hace dos años, cuando tenías más cosas en orden, ni la de cinco años después, cuando seguro que te irá bien. La versión que tienes ahora, la que puede que esté bien, o que está pasando por un momento muy difícil, o que está aburrida e improductiva, esa versión merece amor. Está bien que te cueste aceptarlo, pero negarlo activamente no. Tu valor es intrínseco y es obligatorio confiar en él.</p>
+    </div>
+
+    <div class="mensaje-adicional" id="mensajeChivo">
+        <p><strong>De Chivo:</strong> Si aprendí a programar, quiero decirte que pases un feliz cumpleaños. Pásala bonito, come algo que te guste y pasa junto a tus seres queridos. Tu personalidad es muy única, siempre haces que los demás te quieran. Eres mi hija favorita y también mi única hija, ¡por eso eres mi favorita! Te quiere, Tu amigo, Rabanito.</p>
+    </div>
+
+    <script>
+        function abrirCarta() {
+            // Ocultar pantalla de bienvenida y mostrar la carta
+            document.querySelector('.mensaje-bienvenida').style.display = 'none';
+            document.querySelector('.botones').style.display = 'none';
+            document.getElementById('cartaContenedor').style.display = 'block';
+            // Mostrar los mensajes
+            document.getElementById("mensajeDavid").style.display = "block";
+            document.getElementById("mensajeMyce").style.display = "block";
+            document.getElementById("mensajeChivo").style.display = "block";
+        }
+
+        function rechazarCarta() {
+            // Mover el botón de "No" cada vez que se hace clic
+            document.getElementById('botonNo').classList.add('movido');
+            // Desactivar el botón de "No"
+            document.getElementById('botonNo').disabled = true;
+            // Mostrar el texto de explosión
+            document.getElementById('explosionText').style.display = 'block';
+            // Hacer desaparecer el texto después de la animación
+            setTimeout(() => {
+                document.getElementById('explosionText').style.display = 'none';
+            }, 1000); // Desaparece después de 1 segundo
+            // Hacer que el botón "No" se mueva continuamente
+            setTimeout(() => {
+                document.getElementById('botonNo').classList.remove('movido');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
